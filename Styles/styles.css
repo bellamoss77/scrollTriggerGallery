@@ -1,0 +1,136 @@
+@import url("https://use.typekit.net/efa7ivj.css");
+@keyframes iconWiggle {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.75);
+  }
+  20% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.25);
+  }
+  40% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  60% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.25);
+  }
+  80% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(0.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "mr-eaves-xl-modern", sans-serif;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(0deg, rgb(2, 0, 36) 0%, rgb(9, 9, 121) 24%, rgb(21, 162, 223) 58%, rgb(41, 223, 231) 79%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  z-index: -1;
+}
+
+.intro-text {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.intro-text h1 {
+  font-size: 6rem;
+  font-weight: 800;
+  text-align: center;
+  padding-bottom: 10%;
+}
+.intro-text h3 {
+  font-size: 3rem;
+  font-style: italic;
+}
+
+#imageGalleryContainer .img-container {
+  width: 100vw;
+  height: auto;
+  position: relative;
+}
+#imageGalleryContainer .img-container img {
+  width: 100%;
+  height: 100%;
+}
+#imageGalleryContainer .img-container h4 {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  padding: 15px;
+  font-size: 3rem;
+  font-style: italic;
+  color: #fff;
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+}
+#imageGalleryContainer .img-container .like-btn {
+  transform-origin: center;
+  font-size: 5rem;
+  color: rgba(219, 9, 26, 0.5);
+  position: absolute;
+  top: 10%;
+  right: 5%;
+}
+#imageGalleryContainer .img-container .like-btn:hover {
+  animation: iconWiggle 2s infinite;
+  cursor: pointer;
+}
+#imageGalleryContainer .img-container .like-btn.active {
+  color: rgb(219, 9, 26);
+}
+
+#likedImageListContainer {
+  display: none;
+  margin-top: 15px;
+  padding: 5% 10% 5% 10%;
+  background-color: indigo;
+  color: white;
+}
+#likedImageListContainer.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#likedImageListContainer h3 {
+  font-size: 2.5rem;
+  font-style: italic;
+  text-align: center;
+  font-weight: 700;
+}
+#likedImageListContainer ol {
+  list-style: none;
+}
+#likedImageListContainer ol li {
+  font-size: 1.5rem;
+}/*# sourceMappingURL=styles.css.map */
