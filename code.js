@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
     galleryImages.forEach((image, index) => {
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('img-container');
+        imgContainer.id = `img-${image.title.replace(/\s+/g, '-')}`;
         const img = document.createElement('img');
         img.src = image.src;
         img.alt = image.alt;
@@ -112,10 +113,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const likeBtn = document.createElement('span');
         likeBtn.classList.add('like-btn');
         likeBtn.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+        likeBtn.setAttribute('data-title', image.title);
 
         likeBtn.addEventListener('click', function() {
            this.classList.toggle('active');
-           updatedLikedImagesList(image.title, this.classList.contains('active')); 
+           updatedLikedImagesList(image.title, this.classList.contains('active'));
+           saveLikesToLocalStorage(); 
         });
         
         imgContainer.appendChild(img);
@@ -143,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         );
     });
+    loadLikedImages();
 });
 
 function updatedLikedImagesList(title, isActive) {
@@ -151,14 +155,45 @@ function updatedLikedImagesList(title, isActive) {
 
     if (isActive && !existingItem) {
         const listItem = document.createElement('li');
-        listItem.textContent = title;
+        const link = document.createElement('a');
+        link.href = `#img-${title.replace(/\s+/g, '-')}`;
+        link.textContent = title;
+        listItem.appendChild(link);
         likedImagesList.appendChild(listItem);
     } else if (!isActive && existingItem) {
         likedImagesList.removeChild(existingItem);
     };
 
     toggleLikedImagesContainerVisibility();
+    saveLikesToLocalStorage();
 };
+
+function saveLikesToLocalStorage() {
+    const likedIndices = galleryImages.map((img, index) => {
+        return document.querySelector(`[data-title="${img.title}"]`).classList.contains ('active') ? index : null;
+    }).filter(index => index !== null);
+
+    localStorage.setItem('likedImages', JSON.stringify(likedIndices));
+};
+
+function loadLikedImages() {
+    const savedLikedIndices = JSON.parse(localStorage.getItem('likedImages')) || [];
+    savedLikedIndices.forEach(index => {
+        const image = galleryImages[index];
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = `#img-${title.replace(/\s+/g, '-')}`;
+        link.textContent = image.title;
+        listItem.appendChild(link);
+        likedImagesList.appendChild(listItem);
+
+        const likeBtn = document.querySelector(`[data-title="${image.title}"]`);
+        if (likeBtn) {
+            likeBtn.classList.add('active');
+        }
+    });
+    toggleLikedImagesContainerVisibility();
+}
 
 const toggleLikedImagesContainerVisibility = () => {
     const likedImageListContainer = document.getElementById('likedImageListContainer');
